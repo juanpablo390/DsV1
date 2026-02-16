@@ -447,48 +447,12 @@
         }
         if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
 
-        // --- LÓGICA ANTI-SCROLL INFINITO ---
-        let lastHeight = 0;
-
-        function sendHeight() {
-            // Buscamos el elemento que envuelve todo el contenido
-            // Si no tienes el div "main-wrapper", usa document.querySelector('main').parentElement
-            const wrapper = document.getElementById('main-wrapper') || document.body;
-            
-            // Calculamos la altura redondeando hacia abajo
-            const currentHeight = Math.floor(wrapper.getBoundingClientRect().height);
-
-            // Solo enviamos el mensaje si la altura cambió más de 5px 
-            // Esto rompe el bucle infinito de Moodle
-            if (Math.abs(lastHeight - currentHeight) > 5) {
-                lastHeight = currentHeight;
-                window.parent.postMessage(currentHeight, "*");
-            }
-        }
-
-        // Eventos de disparo
-        window.addEventListener('load', () => {
-            // Un pequeño delay para asegurar que Tailwind renderizó
-            setTimeout(sendHeight, 300);
-        });
-        
-        window.addEventListener('resize', sendHeight);
-
-        // Observador de cambios sutiles
-        const observer = new MutationObserver(() => {
-            sendHeight();
-        });
-
-        observer.observe(document.body, { 
-            attributes: true, 
-            childList: true, 
-            subtree: true 
-        });
     </script>
 </body>
 </html>
 </body>
 </html>
+
 
 
 
