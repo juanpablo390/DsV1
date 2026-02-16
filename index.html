@@ -126,41 +126,46 @@
             border-color: rgba(255, 255, 255, 0.05);
         }
 
-        /* Botón de tema */
+        /* Botón de tema - Arriba a la derecha y sutil */
         .theme-toggle {
             position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             z-index: 1000;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(2px);
         }
 
         .dark .theme-toggle {
-            background: rgba(30, 41, 59, 0.6);
+            background: rgba(15, 23, 42, 0.4);
             border-color: rgba(255, 255, 255, 0.1);
-            color: #bef264;
         }
-
-        .theme-toggle:hover { transform: scale(1.1); background: white; }
-        .dark .theme-toggle:hover { background: #1e293b; }
     </style>
 </head>
 <body class="pb-16 flex flex-col gap-16 transition-colors duration-500">
 
-    <button onclick="toggleTheme()" class="theme-toggle" title="Cambiar tema">
-        <svg id="sun-icon" class="w-6 h-6 block dark:hidden text-[#478518]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.364l-.707.707M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-        <svg id="moon-icon" class="w-6 h-6 hidden dark:block text-lime-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+    <button onclick="toggleTheme()" class="theme-toggle" title="Cambiar modo">
+        <svg id="sun-icon" class="w-5 h-5 block dark:hidden text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.364l-.707.707M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+        </svg>
+        <svg id="moon-icon" class="w-5 h-5 hidden dark:block text-lime-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+        </svg>
     </button>
 
     <header class="w-full header-gradient py-20 relative overflow-hidden">
@@ -191,7 +196,7 @@
                 <p class="text-slate-600 dark:text-slate-300 text-2xl leading-relaxed font-medium">
                     ¡Bienvenidos al cerebro de la Micro:bit! Hoy aprenderemos cómo las máquinas 
                     <span class="relative inline-block">
-                        <span class="relative z-10 text-[#478518] dark:text-lime-400 font-black px-2">“recuerdan”</span>
+                        <span class="relative z-10 text-[#478518] dark:text-lime-400 font-black px-2 transition-colors">“recuerdan”</span>
                         <span class="absolute bottom-1 left-0 w-full h-3 bg-[#bef264]/40 -z-0"></span>
                     </span> cosas. 
                 </p>
@@ -200,13 +205,13 @@
                     <span class="block mt-4 font-black text-4xl text-slate-800 dark:text-white leading-tight tracking-tighter transition-colors">¡Eso es gracias a las variables!</span>
                 </div>
             </div>
-            <div class="w-40 h-40 bg-gradient-to-br from-white to-slate-100 dark:from-slate-700 dark:to-slate-800 rounded-[40px] flex items-center justify-center text-7xl shadow-[20px_20px_60px_-15px_rgba(0,0,0,0.1)] border-t border-l border-white dark:border-slate-600 shrink-0">🧠</div>
+            <div class="w-40 h-40 bg-gradient-to-br from-white to-slate-100 dark:from-slate-700 dark:to-slate-800 rounded-[40px] flex items-center justify-center text-7xl shadow-[20px_20px_60px_-15px_rgba(0,0,0,0.1)] border-t border-l border-white dark:border-slate-600 shrink-0 transition-all">🧠</div>
         </section>
 
         <section class="container-850 figma-card p-12">
             <div class="section-header">
                 <div class="section-icon">📦</div>
-                <h2 class="text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">¿Qué es una variable?</h2>
+                <h2 class="text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight transition-colors">¿Qué es una variable?</h2>
             </div>
             
             <div class="bg-slate-900 p-10 rounded-[40px] mb-10 relative shadow-2xl">
@@ -345,7 +350,7 @@
                 <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white transition-colors italic">Manipulación y Operadores</h2>
             </div>
             <p class="text-2xl text-slate-600 dark:text-slate-400 font-medium leading-snug tracking-tight text-center mb-10 transition-colors">
-                Podemos hacer <span class="text-[#478518] dark:text-lime-400 font-black">matemáticas</span> con nuestras cajas para crear lógica.
+                Podemos hacer <span class="text-[#478518] dark:text-lime-400 font-black transition-colors">matemáticas</span> con nuestras cajas para crear lógica.
             </p>
             <div class="grid lg:grid-cols-2 gap-8 items-center mb-10">
                 <div class="bg-slate-900 p-10 rounded-[40px] border-t-4 border-[#96cd34] shadow-2xl relative h-full flex flex-col justify-center">
@@ -400,7 +405,7 @@
             </div>
         </section>
 
-        <footer class="container-850 figma-card p-16 text-center border-t-8 border-[#96cd34] bg-slate-50/50 dark:bg-slate-800/30">
+        <footer class="container-850 figma-card p-16 text-center border-t-8 border-[#96cd34] bg-slate-50/50 dark:bg-slate-800/30 transition-all">
             <h2 class="text-6xl font-black text-slate-900 dark:text-white mb-8 transition-colors italic">¡Increíble Trabajo! 🏆</h2>
             <p class="text-slate-500 dark:text-slate-400 text-2xl max-w-2xl mx-auto mb-16 leading-relaxed font-light transition-colors">
                 Has creado un programa que <b>recuerda</b>. Sin variables, la programación sería estática.
@@ -414,7 +419,7 @@
                 </div>
                 <div class="w-56 h-56 relative shrink-0">
                     <div class="absolute inset-0 bg-[#96cd34] rounded-full animate-pulse blur-2xl opacity-20"></div>
-                    <div class="relative w-full h-full bg-white dark:bg-slate-600 rounded-full border-8 border-[#f8fafc] dark:border-slate-700 shadow-2xl overflow-hidden ring-4 ring-[#96cd34]">
+                    <div class="relative w-full h-full bg-white dark:bg-slate-600 rounded-full border-8 border-[#f8fafc] dark:border-slate-700 shadow-2xl overflow-hidden ring-4 ring-[#96cd34] transition-all">
                         <img src="https://microlog.es/img/cms/BANER2PP.png" alt="Niño con Microbit" class="w-full h-full object-cover">
                     </div>
                 </div>
@@ -427,9 +432,12 @@
             document.body.classList.toggle('dark');
             localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
         }
-        if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+        // Persistir el tema al recargar
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark');
+        }
     </script>
-    <script>
+     <script>
   function sendHeight() {
     // Calculamos el alto real del contenido
     const body = document.body;
