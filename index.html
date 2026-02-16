@@ -20,37 +20,15 @@
             --accent-lime: #bef264;
         }
         
-        /* ESTRUCTURA PARA EVITAR DOBLE SCROLL EN MOODLE */
-        html, body { 
-            height: 100vh;
-            margin: 0;
-            padding: 0;
-            overflow: hidden; /* Bloquea el scroll del navegador */
+        body { 
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: #f1f5f9;
-            transition: background-color 0.5s ease;
-        }
-
-        /* EL CONTENEDOR PRINCIPAL MANEJA EL SCROLL */
-        main {
-            height: 100vh;
-            overflow-y: auto;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        /* Personalización de la barra de scroll para que sea sutil */
-        main::-webkit-scrollbar { width: 8px; }
-        main::-webkit-scrollbar-track { background: transparent; }
-        main::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        .dark main::-webkit-scrollbar-thumb { background: #334155; }
-
-        body { 
             background-image: 
                 radial-gradient(at 0% 0%, rgba(150, 205, 52, 0.1) 0px, transparent 50%),
                 radial-gradient(at 100% 100%, rgba(71, 133, 24, 0.1) 0px, transparent 50%),
                 radial-gradient(#cbd5e1 0.5px, transparent 0.5px);
             background-size: 100% 100%, 100% 100%, 30px 30px;
+            transition: background-color 0.5s ease;
         }
 
         body.dark {
@@ -64,7 +42,6 @@
         .container-850 {
             max-width: 850px;
             margin: 0 auto;
-            width: 100%;
         }
 
         .figma-card {
@@ -80,6 +57,11 @@
             background: rgba(30, 41, 59, 0.7);
             border: 1px solid rgba(255, 255, 255, 0.05);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        .figma-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 25px 50px -12px rgba(71, 133, 24, 0.15);
         }
 
         .section-header {
@@ -105,6 +87,7 @@
 
         .header-gradient {
             background: linear-gradient(135deg, #2d5a0d 0%, #478518 50%, #96cd34 100%);
+            box-shadow: 0 20px 40px -10px rgba(45, 90, 13, 0.3);
         }
 
         .separation-pill {
@@ -114,6 +97,7 @@
             border-radius: 50px;
             padding: 10px 28px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
         }
 
         .dark .separation-pill { background: #1e293b; border-color: #334155; }
@@ -125,6 +109,7 @@
             background: white;
             padding: 1rem;
             box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+            transition: background 0.3s ease;
         }
 
         .dark .img-container { background: #0f172a; }
@@ -133,8 +118,15 @@
             background: rgba(255, 255, 255, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.8);
             border-radius: 24px;
+            transition: all 0.3s ease;
         }
 
+        .dark .glass-inner {
+            background: rgba(15, 23, 42, 0.4);
+            border-color: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Botón de tema - Arriba a la derecha y sutil */
         .theme-toggle {
             position: fixed;
             top: 1.5rem;
@@ -142,7 +134,7 @@
             width: 40px;
             height: 40px;
             border-radius: 12px;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             display: flex;
@@ -150,10 +142,22 @@
             justify-content: center;
             cursor: pointer;
             z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(2px);
+        }
+
+        .dark .theme-toggle {
+            background: rgba(15, 23, 42, 0.4);
+            border-color: rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
-<body class="transition-colors duration-500">
+<body class="pb-16 flex flex-col gap-16 transition-colors duration-500">
 
     <button onclick="toggleTheme()" class="theme-toggle" title="Cambiar modo">
         <svg id="sun-icon" class="w-5 h-5 block dark:hidden text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -164,174 +168,263 @@
         </svg>
     </button>
 
-    <main>
-        <header class="w-full header-gradient py-20 relative overflow-hidden shrink-0">
-            <div class="absolute -top-24 -left-24 w-64 h-64 bg-lime-400 opacity-20 rounded-full blur-3xl"></div>
-            <div class="container-850 px-6 relative z-10 text-center">
-                <div class="inline-flex items-center gap-2 bg-black/20 backdrop-blur-xl px-5 py-2 rounded-full text-lime-300 text-xs font-black uppercase tracking-[0.2em] mb-6 border border-white/10">
-                    <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-lime-400"></span>
-                    </span>
-                    Módulo de Programación
-                </div>
-                <h1 class="text-white text-5xl md:text-7xl font-extrabold tracking-tight mb-4 drop-shadow-2xl">Clase 0. Variables</h1>
-                <p class="text-lime-100/80 text-2xl font-semibold tracking-wide flex items-center justify-center gap-3">
-                    <span class="h-px w-8 bg-lime-400/50"></span>
-                    BIENVENIDA
-                    <span class="h-px w-8 bg-lime-400/50"></span>
-                </p>
+    <header class="w-full header-gradient py-20 relative overflow-hidden">
+        <div class="absolute -top-24 -left-24 w-64 h-64 bg-lime-400 opacity-20 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-24 -right-24 w-80 h-80 bg-white opacity-10 rounded-full blur-3xl"></div>
+        
+        <div class="container-850 px-6 relative z-10 text-center">
+            <div class="inline-flex items-center gap-2 bg-black/20 backdrop-blur-xl px-5 py-2 rounded-full text-lime-300 text-xs font-black uppercase tracking-[0.2em] mb-6 border border-white/10">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-lime-400"></span>
+                </span>
+                Módulo de Programación
             </div>
-        </header>
+            <h1 class="text-white text-5xl md:text-7xl font-extrabold tracking-tight mb-4 drop-shadow-2xl">Clase 0. Variables</h1>
+            <p class="text-lime-100/80 text-2xl font-semibold tracking-wide flex items-center justify-center gap-3">
+                <span class="h-px w-8 bg-lime-400/50"></span>
+                BIENVENIDA
+                <span class="h-px w-8 bg-lime-400/50"></span>
+            </p>
+        </div>
+    </header>
 
-        <div class="container-850 px-4 py-16 space-y-16">
+    <main class="flex flex-col gap-16 px-4">
+        
+        <section class="container-850 figma-card p-12 flex flex-col md:flex-row items-center gap-12 border-b-4 border-b-[#96cd34]">
+            <div class="flex-1">
+                <p class="text-slate-600 dark:text-slate-300 text-2xl leading-relaxed font-medium">
+                    ¡Bienvenidos al cerebro de la Micro:bit! Hoy aprenderemos cómo las máquinas 
+                    <span class="relative inline-block">
+                        <span class="relative z-10 text-[#478518] dark:text-lime-400 font-black px-2 transition-colors">“recuerdan”</span>
+                        <span class="absolute bottom-1 left-0 w-full h-3 bg-[#bef264]/40 -z-0"></span>
+                    </span> cosas. 
+                </p>
+                <div class="mt-8 p-6 glass-inner">
+                    <p class="text-slate-500 dark:text-slate-400 text-lg italic transition-colors">¿Alguna vez te has preguntado cómo un videojuego sabe cuántos puntos llevas?</p>
+                    <span class="block mt-4 font-black text-4xl text-slate-800 dark:text-white leading-tight tracking-tighter transition-colors">¡Eso es gracias a las variables!</span>
+                </div>
+            </div>
+            <div class="w-40 h-40 bg-gradient-to-br from-white to-slate-100 dark:from-slate-700 dark:to-slate-800 rounded-[40px] flex items-center justify-center text-7xl shadow-[20px_20px_60px_-15px_rgba(0,0,0,0.1)] border-t border-l border-white dark:border-slate-600 shrink-0 transition-all">🧠</div>
+        </section>
+
+        <section class="container-850 figma-card p-12">
+            <div class="section-header">
+                <div class="section-icon">📦</div>
+                <h2 class="text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight transition-colors">¿Qué es una variable?</h2>
+            </div>
             
-            <section class="figma-card p-12 flex flex-col md:flex-row items-center gap-12 border-b-4 border-b-[#96cd34]">
-                <div class="flex-1">
-                    <p class="text-slate-600 dark:text-slate-300 text-2xl leading-relaxed font-medium">
-                        ¡Bienvenidos al cerebro de la Micro:bit! Hoy aprenderemos cómo las máquinas 
-                        <span class="text-[#478518] dark:text-lime-400 font-black px-2">“recuerdan”</span> cosas. 
+            <div class="bg-slate-900 p-10 rounded-[40px] mb-10 relative shadow-2xl">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-[#96cd34] opacity-10 blur-3xl"></div>
+                <div class="absolute -top-4 -right-4 bg-[#bef264] text-[#2d5a0d] px-6 py-2 rounded-2xl text-sm font-black rotate-3 shadow-lg z-20">CONCEPTO CLAVE</div>
+                
+                <h3 class="text-[#bef264] text-2xl font-black mb-6 flex items-center gap-3">
+                    <span class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-xl italic">"</span>
+                    La Caja Mágica
+                </h3>
+                <p class="text-white leading-relaxed text-xl mb-8 font-light">
+                    En programación, una variable se trata de un <span class="text-[#96cd34] font-bold underline decoration-lime-500/30 underline-offset-4">espacio en la memoria</span> de un dispositivo que se utiliza para almacenar información de un determinado tipo de dato.
+                </p>
+                <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/10">
+                    <p class="text-lime-100/90 leading-relaxed font-medium">
+                        En palabras sencillas, es como una <b>caja con una etiqueta</b>. Puedes guardar un número, una palabra o un valor dentro, y cambiarlo cuando quieras.
                     </p>
-                    <div class="mt-8 p-6 glass-inner bg-white/50 dark:bg-slate-800/40 rounded-2xl border border-white/20">
-                        <p class="text-slate-500 dark:text-slate-400 text-lg italic transition-colors">¿Alguna vez te has preguntado cómo un videojuego sabe cuántos puntos llevas?</p>
-                        <span class="block mt-4 font-black text-4xl text-slate-800 dark:text-white leading-tight tracking-tighter transition-colors">¡Eso es gracias a las variables!</span>
+                </div>
+            </div>
+            <div class="img-container shadow-xl">
+                <img src="https://niixer.com/wp-content/uploads/2023/02/image-11-1024x329.png" alt="Explicación visual de variables" class="hover:scale-[1.02] transition-transform duration-500 rounded-xl dark:opacity-80">
+            </div>
+        </section>
+
+        <section class="container-850 figma-card p-12">
+            <div class="section-header">
+                <div class="section-icon">🔍</div>
+                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white transition-colors">Componentes <span class="text-slate-400 font-light block text-lg tracking-normal italic mt-1">Anatomía básica de una variable</span></h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="group p-8 bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 hover:border-[#96cd34] transition-all duration-300">
+                    <div class="w-12 h-12 bg-white dark:bg-slate-600 rounded-xl shadow-sm flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🏷️</div>
+                    <h4 class="font-black text-slate-800 dark:text-white text-xl mb-2">Nombre único</h4>
+                    <p class="text-slate-500 dark:text-slate-400 leading-relaxed">Identifica la variable dentro del programa de forma clara.</p>
+                </div>
+                <div class="group p-8 bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 hover:border-[#96cd34] transition-all duration-300">
+                    <div class="w-12 h-12 bg-white dark:bg-slate-600 rounded-xl shadow-sm flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">💎</div>
+                    <h4 class="font-black text-slate-800 dark:text-white text-xl mb-2">Valor guardado</h4>
+                    <p class="text-slate-500 dark:text-slate-400 leading-relaxed">La información real que cambia durante la ejecución.</p>
+                </div>
+                <div class="group p-8 bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 hover:border-[#478518] transition-all duration-300">
+                    <div class="w-12 h-12 bg-white dark:bg-slate-600 rounded-xl shadow-sm flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">📂</div>
+                    <h4 class="font-black text-slate-800 dark:text-white text-xl mb-2">Tipo de datos</h4>
+                    <p class="text-slate-500 dark:text-slate-400 leading-relaxed">Define qué tipo de cosas puede guardar (Números, texto, etc).</p>
+                </div>
+                <div class="group p-8 bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 hover:border-[#478518] transition-all duration-300">
+                    <div class="w-12 h-12 bg-white dark:bg-slate-600 rounded-xl shadow-sm flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🌐</div>
+                    <h4 class="font-black text-slate-800 dark:text-white text-xl mb-2">Alcance</h4>
+                    <p class="text-slate-500 dark:text-slate-400 leading-relaxed">Global (todo el programa) o Local (espacio específico).</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="text-center">
+            <div class="separation-pill">
+                <span class="text-[#478518] dark:text-lime-400 font-black uppercase tracking-[0.4em] text-xs transition-colors">Clasificación de Datos</span>
+            </div>
+        </div>
+
+        <section class="container-850 figma-card p-12 border-2 border-[#96cd34]/20 shadow-[0_0_50px_rgba(150,205,52,0.1)]">
+            <div class="section-header">
+                <div class="section-icon" style="background: #0f172a;">📊</div>
+                <h2 class="text-4xl font-extrabold text-slate-900 dark:text-white transition-colors">Tipos de Datos</h2>
+            </div>
+            <div class="flex flex-col lg:flex-row gap-12 items-center">
+                <div class="flex-1 space-y-5">
+                    <p class="text-slate-500 dark:text-slate-400 mb-6 font-bold text-lg italic flex items-center gap-2">
+                        <span class="w-8 h-[2px] bg-slate-200 dark:bg-slate-700"></span> No todas las cajas guardan lo mismo
+                    </p>
+                    <div class="flex items-center gap-6 p-6 bg-slate-50 dark:bg-slate-800/50 rounded-[24px] border border-slate-100 dark:border-slate-700 hover:shadow-md transition-all">
+                        <span class="text-3xl bg-white dark:bg-slate-600 w-16 h-16 flex items-center justify-center rounded-2xl shadow-sm shrink-0">🔢</span> 
+                        <p class="text-lg text-slate-700 dark:text-slate-300 leading-snug transition-colors"><b>Número:</b> Para edades, temperaturas o puntos.</p>
+                    </div>
+                    <div class="flex items-center gap-6 p-6 bg-slate-50 dark:bg-slate-800/50 rounded-[24px] border border-slate-100 dark:border-slate-700 hover:shadow-md transition-all">
+                        <span class="text-3xl bg-white dark:bg-slate-600 w-16 h-16 flex items-center justify-center rounded-2xl shadow-sm shrink-0">🔡</span> 
+                        <p class="text-lg text-slate-700 dark:text-slate-300 leading-snug transition-colors"><b>Texto (Cadena):</b> Para nombres o mensajes de bienvenida.</p>
+                    </div>
+                    <div class="flex items-center gap-6 p-6 bg-slate-50 dark:bg-slate-800/50 rounded-[24px] border border-slate-100 dark:border-slate-700 hover:shadow-md transition-all">
+                        <span class="text-3xl bg-white dark:bg-slate-600 w-16 h-16 flex items-center justify-center rounded-2xl shadow-sm shrink-0">⚖️</span> 
+                        <p class="text-lg text-slate-700 dark:text-slate-300 leading-snug transition-colors"><b>Booleano:</b> Para estados "Encendido/Apagado".</p>
                     </div>
                 </div>
-                <div class="w-40 h-40 bg-gradient-to-br from-white to-slate-100 dark:from-slate-700 dark:to-slate-800 rounded-[40px] flex items-center justify-center text-7xl shadow-xl shrink-0 transition-all">🧠</div>
-            </section>
+                <div class="w-full lg:w-1/2">
+                    <div class="relative group">
+                        <div class="absolute -inset-1 bg-gradient-to-r from-[#478518] to-[#96cd34] rounded-[40px] blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+                        <div class="relative bg-white dark:bg-slate-700 p-4 rounded-[40px] shadow-2xl transition-colors">
+                            <img src="Imagenes/Tipos de datos.png" alt="Tipos de Datos" class="rounded-[30px] dark:opacity-90">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-            <section class="figma-card p-12">
-                <div class="section-header">
-                    <div class="section-icon">📦</div>
-                    <h2 class="text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight transition-colors">¿Qué es una variable?</h2>
+        <section class="container-850 figma-card p-12 bg-[#0f172a] text-white relative overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,23,42,0.5)]">
+            <div class="absolute -bottom-20 -left-20 w-96 h-96 bg-[#478518] opacity-20 blur-[120px]"></div>
+            <div class="relative z-10">
+                <div class="section-header border-white/5">
+                    <div class="section-icon" style="background: #bef264; color: #0f172a;">💻</div>
+                    <h2 class="text-4xl font-black text-white">Creación en <span class="text-[#96cd34]">MakeCode</span></h2>
                 </div>
                 
-                <div class="bg-slate-900 p-10 rounded-[40px] mb-10 relative shadow-2xl">
-                    <div class="absolute -top-4 -right-4 bg-[#bef264] text-[#2d5a0d] px-6 py-2 rounded-2xl text-sm font-black rotate-3 shadow-lg z-20">CONCEPTO CLAVE</div>
-                    <h3 class="text-[#bef264] text-2xl font-black mb-6 flex items-center gap-3">La Caja Mágica</h3>
-                    <p class="text-white leading-relaxed text-xl mb-8 font-light">
-                        En programación, una variable se trata de un <span class="text-[#96cd34] font-bold underline decoration-lime-500/30 underline-offset-4">espacio en la memoria</span> de un dispositivo que se utiliza para almacenar información de un determinado tipo de dato. Es como una caja con etiqueta.
-                    </p>
-                </div>
-                <div class="img-container shadow-xl">
-                    <img src="https://niixer.com/wp-content/uploads/2023/02/image-11-1024x329.png" alt="Variables" class="rounded-xl w-full dark:opacity-80">
-                </div>
-            </section>
-
-            <section class="figma-card p-12">
-                <div class="section-header">
-                    <div class="section-icon">🔍</div>
-                    <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white transition-colors">Anatomía básica</h2>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="p-8 bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-slate-200 dark:border-slate-700">
-                        <div class="text-xl mb-2">🏷️ <b>Nombre único</b></div>
-                        <p class="text-slate-500 dark:text-slate-400">Identifica la variable en el programa.</p>
+                <div class="grid md:grid-cols-2 gap-8 mb-12 items-stretch">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-5 bg-white/5 p-6 rounded-3xl border border-white/10 hover:bg-white/10 transition-colors">
+                            <span class="bg-[#478518] w-10 h-10 rounded-xl flex items-center justify-center font-black text-white shadow-lg shrink-0">1</span>
+                            <p class="text-slate-200 text-lg">Categoría <b>Variables</b>.</p>
+                        </div>
+                        <div class="flex items-center gap-5 bg-white/5 p-6 rounded-3xl border border-white/10 hover:bg-white/10 transition-colors">
+                            <span class="bg-[#478518] w-10 h-10 rounded-xl flex items-center justify-center font-black text-white shadow-lg shrink-0">2</span>
+                            <p class="text-slate-200 text-lg">Clic en <b>"Crear variable..."</b>.</p>
+                        </div>
+                        <div class="flex items-center gap-5 bg-white/5 p-6 rounded-3xl border border-white/10 hover:bg-white/10 transition-colors">
+                            <span class="bg-[#478518] w-10 h-10 rounded-xl flex items-center justify-center font-black text-white shadow-lg shrink-0">3</span>
+                            <p class="text-slate-200 text-lg">Nombre claro (ej. "contador").</p>
+                        </div>
                     </div>
-                    <div class="p-8 bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-slate-200 dark:border-slate-700">
-                        <div class="text-xl mb-2">💎 <b>Valor guardado</b></div>
-                        <p class="text-slate-500 dark:text-slate-400">La información que cambia.</p>
+
+                    <div class="bg-gradient-to-br from-[#478518]/30 to-[#96cd34]/10 p-10 rounded-[40px] border border-[#96cd34]/30 relative">
+                        <div class="absolute top-6 left-6 text-4xl opacity-20">💡</div>
+                        <span class="bg-[#bef264] text-slate-900 px-4 py-1.5 rounded-full text-xs font-black mb-6 inline-block uppercase tracking-widest">PRO TIP</span>
+                        <p class="text-lime-100 text-xl leading-relaxed italic font-light">
+                            "MakeCode te dará dos bloques mágicos: <b>Fijar</b> (para iniciar) y <b>cambiar</b> (para sumar o restar)."
+                        </p>
                     </div>
                 </div>
-            </section>
 
-            <div class="text-center">
-                <div class="separation-pill">
-                    <span class="text-[#478518] dark:text-lime-400 font-black uppercase tracking-[0.4em] text-xs">Clasificación de Datos</span>
+                <div class="bg-white p-2 rounded-[36px] shadow-2xl overflow-hidden group">
+                    <img src="Imagenes/MicroBit_1.png" alt="MakeCode Paso 1" class="w-full group-hover:scale-[1.01] transition-transform duration-700">
                 </div>
             </div>
+        </section>
 
-            <section class="figma-card p-12 border-2 border-[#96cd34]/20">
-                <div class="section-header">
-                    <div class="section-icon" style="background: #0f172a;">📊</div>
-                    <h2 class="text-4xl font-extrabold text-slate-900 dark:text-white transition-colors">Tipos de Datos</h2>
-                </div>
-                <div class="flex flex-col lg:flex-row gap-12 items-center">
-                    <div class="flex-1 space-y-5">
-                        <div class="flex items-center gap-6 p-6 bg-slate-50 dark:bg-slate-800/50 rounded-[24px]">
-                            <span class="text-3xl shrink-0">🔢</span> 
-                            <p class="text-lg text-slate-700 dark:text-slate-300"><b>Número:</b> Edades o puntos.</p>
-                        </div>
-                        <div class="flex items-center gap-6 p-6 bg-slate-50 dark:bg-slate-800/50 rounded-[24px]">
-                            <span class="text-3xl shrink-0">🔡</span> 
-                            <p class="text-lg text-slate-700 dark:text-slate-300"><b>Texto:</b> Nombres o mensajes.</p>
-                        </div>
-                    </div>
-                    <div class="w-full lg:w-1/2">
-                        <img src="Imagenes/Tipos de datos.png" alt="Tipos" class="rounded-[30px] shadow-2xl dark:opacity-90">
+        <section class="container-850 figma-card p-12">
+            <div class="section-header">
+                <div class="section-icon">➕</div>
+                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white transition-colors italic">Manipulación y Operadores</h2>
+            </div>
+            <p class="text-2xl text-slate-600 dark:text-slate-400 font-medium leading-snug tracking-tight text-center mb-10 transition-colors">
+                Podemos hacer <span class="text-[#478518] dark:text-lime-400 font-black transition-colors">matemáticas</span> con nuestras cajas para crear lógica.
+            </p>
+            <div class="grid lg:grid-cols-2 gap-8 items-center mb-10">
+                <div class="bg-slate-900 p-10 rounded-[40px] border-t-4 border-[#96cd34] shadow-2xl relative h-full flex flex-col justify-center">
+                    <div class="bg-[#96cd34]/10 text-[#96cd34] text-[10px] font-black tracking-[0.3em] absolute top-4 right-8 px-3 py-1 rounded-full border border-[#96cd34]/20 uppercase">Core Logic</div>
+                    <div class="space-y-4 font-mono text-2xl text-white">
+                        <p class="flex items-center gap-3"><span class="text-[#96cd34] opacity-50">&gt;</span> Variable = Var + 1</p>
+                        <p class="flex items-center gap-3"><span class="text-[#96cd34] opacity-50">&gt;</span> Variable = Var - 1</p>
                     </div>
                 </div>
-            </section>
+                <div class="img-container bg-slate-50 border-2 border-slate-100 p-6 rotate-2 transform hover:rotate-0 transition-all duration-500">
+                    <img src="Imagenes/MicroBit_2.png" alt="Operadores" class="drop-shadow-xl w-full">
+                </div>
+            </div>
+            <div class="w-full flex gap-6 items-center p-8 bg-lime-50 dark:bg-lime-900/10 rounded-[24px] border border-lime-100 dark:border-lime-800 transition-all italic text-slate-600 dark:text-slate-400 shadow-sm">
+                <span class="text-4xl animate-bounce">💡</span>
+                <p class="text-xl">El bloque <b>cambiar contador por 1</b> hace que la Micro:bit sume automáticamente al valor anterior.</p>
+            </div>
+        </section>
 
-            <section class="figma-card p-12 bg-[#0f172a] text-white">
-                <div class="section-header">
-                    <div class="section-icon" style="background: #bef264; color: #0f172a;">💻</div>
-                    <h2 class="text-4xl font-black text-white">Creación en MakeCode</h2>
+        <section class="container-850 figma-card p-12 border-t-[16px] border-[#478518] shadow-[0_40px_80px_-20px_rgba(71,133,24,0.2)]">
+            <div class="section-header">
+                <div class="section-icon" style="background: #f59e0b;">🏆</div>
+                <div>
+                    <h2 class="text-4xl font-black text-slate-900 dark:text-white transition-colors tracking-tight">Práctica Guiada:</h2>
+                    <h3 class="text-2xl font-bold text-[#478518] dark:text-lime-400 transition-colors flex items-center gap-2">El Contador de Clics <span class="h-2 w-2 rounded-full bg-orange-400 animate-pulse"></span></h3>
                 </div>
-                <div class="grid md:grid-cols-2 gap-8 mb-12">
-                    <div class="space-y-4 text-slate-200">
-                        <p>1. Categoría <b>Variables</b>.</p>
-                        <p>2. Clic en <b>"Crear variable..."</b>.</p>
-                        <p>3. Nombre claro (ej. "contador").</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12 items-center">
+                <div class="space-y-6">
+                    <div class="flex gap-6 group">
+                        <div class="w-14 h-14 rounded-2xl bg-slate-900 text-[#bef264] flex items-center justify-center font-black text-2xl shadow-xl group-hover:bg-[#478518] transition-colors">1</div>
+                        <p class="text-slate-700 dark:text-slate-300 text-xl font-medium pt-3 transition-colors"><b>Inicio:</b> Pon tu variable <b>contador</b> en 0.</p>
                     </div>
-                    <div class="bg-white/10 p-8 rounded-3xl border border-white/10">
-                        <p class="text-lime-300 italic">"MakeCode te dará bloques para fijar y cambiar valores."</p>
+                    <div class="flex gap-6 group">
+                        <div class="w-14 h-14 rounded-2xl bg-slate-900 text-[#bef264] flex items-center justify-center font-black text-2xl shadow-xl group-hover:bg-[#478518] transition-colors">2</div>
+                        <p class="text-slate-700 dark:text-slate-300 text-xl font-medium pt-3 transition-colors"><b>Entrada:</b> Al presionar Botón A, suma 1.</p>
+                    </div>
+                    <div class="flex gap-6 group">
+                        <div class="w-14 h-14 rounded-2xl bg-slate-900 text-[#bef264] flex items-center justify-center font-black text-2xl shadow-xl group-hover:bg-[#478518] transition-colors">3</div>
+                        <p class="text-slate-700 dark:text-slate-300 text-xl font-medium pt-3 transition-colors"><b>Salida:</b> Muestra el número en pantalla LED.</p>
                     </div>
                 </div>
-                <img src="Imagenes/MicroBit_1.png" alt="MakeCode Paso 1" class="w-full rounded-[36px] bg-white p-2">
-            </section>
+                <div class="flex justify-center">
+                    <div class="bg-gradient-to-br from-[#bef264] to-[#96cd34] p-10 rounded-[50px] shadow-lg relative text-center max-w-xs transform -rotate-2 hover:rotate-0 transition-transform">
+                        <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-6 py-2 rounded-full text-sm font-black italic shadow-xl">RETO 🔥</div>
+                        <p class="text-slate-900 font-extrabold text-2xl leading-tight">¿Cómo harías que el Botón B reinicie a 0?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="img-container bg-slate-900 p-8">
+                <img src="Imagenes/MicroBit_3.png" alt="Código Completo" class="rounded-xl w-full">
+            </div>
+        </section>
 
-            <section class="figma-card p-12">
-                <div class="section-header">
-                    <div class="section-icon">➕</div>
-                    <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white transition-colors italic">Manipulación</h2>
+        <footer class="container-850 figma-card p-16 text-center border-t-8 border-[#96cd34] bg-slate-50/50 dark:bg-slate-800/30 transition-all">
+            <h2 class="text-6xl font-black text-slate-900 dark:text-white mb-8 transition-colors italic">¡Increíble Trabajo! 🏆</h2>
+            <p class="text-slate-500 dark:text-slate-400 text-2xl max-w-2xl mx-auto mb-16 leading-relaxed font-light transition-colors">
+                Has creado un programa que <b>recuerda</b>. Sin variables, la programación sería estática.
+            </p>
+            <div class="flex flex-col md:flex-row items-center gap-12 text-left bg-white dark:bg-slate-800 p-12 rounded-[56px] border border-slate-200 dark:border-slate-700 shadow-2xl relative transition-all">
+                <div class="absolute -top-6 left-12 bg-[#478518] text-white px-6 py-2 rounded-full text-xs font-black uppercase tracking-widest">Reflexión Final</div>
+                <div class="flex-1">
+                    <p class="text-slate-700 dark:text-slate-300 text-2xl leading-relaxed italic font-medium transition-colors">
+                        "¿En qué otro lugar de tu vida diaria crees que se usan variables? Piénsalo para tus próximos proyectos."
+                    </p>
                 </div>
-                <p class="text-xl mb-10 text-slate-600 dark:text-slate-400">Podemos hacer matemáticas con nuestras cajas.</p>
-                <div class="grid lg:grid-cols-2 gap-8 mb-10 h-full">
-                    <div class="bg-slate-900 p-10 rounded-[40px] text-white font-mono text-2xl flex flex-col justify-center">
-                        <p class="text-[#96cd34]">Variable = Var + 1</p>
-                        <p class="text-[#96cd34]">Variable = Var - 1</p>
-                    </div>
-                    <div class="img-container bg-slate-50 rotate-2">
-                        <img src="Imagenes/MicroBit_2.png" alt="Operadores" class="w-full">
-                    </div>
-                </div>
-            </section>
-
-            <section class="figma-card p-12 border-t-[16px] border-[#478518]">
-                <div class="section-header">
-                    <div class="section-icon" style="background: #f59e0b;">🏆</div>
-                    <h2 class="text-4xl font-black text-slate-900 dark:text-white tracking-tight">Práctica: El Contador</h2>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12 items-center">
-                    <div class="space-y-6 text-xl">
-                        <p><b>1. Inicio:</b> Pon contador en 0.</p>
-                        <p><b>2. Entrada:</b> Botón A suma 1.</p>
-                        <p><b>3. Salida:</b> Muestra el número.</p>
-                    </div>
-                    <div class="bg-gradient-to-br from-[#bef264] to-[#96cd34] p-10 rounded-[50px] text-center font-black">
-                        RETO: ¿Cómo harías que el Botón B reinicie a 0?
+                <div class="w-56 h-56 relative shrink-0">
+                    <div class="absolute inset-0 bg-[#96cd34] rounded-full animate-pulse blur-2xl opacity-20"></div>
+                    <div class="relative w-full h-full bg-white dark:bg-slate-600 rounded-full border-8 border-[#f8fafc] dark:border-slate-700 shadow-2xl overflow-hidden ring-4 ring-[#96cd34] transition-all">
+                        <img src="https://microlog.es/img/cms/BANER2PP.png" alt="Niño con Microbit" class="w-full h-full object-cover">
                     </div>
                 </div>
-                <div class="img-container bg-slate-900 p-8">
-                    <img src="Imagenes/MicroBit_3.png" alt="Código Completo" class="rounded-xl w-full">
-                </div>
-            </section>
-
-            <footer class="pb-24">
-                <div class="figma-card p-12 text-center bg-slate-50/50 dark:bg-slate-800/30">
-                    <h2 class="text-5xl font-black dark:text-white mb-8 italic">¡Increíble Trabajo!</h2>
-                    <div class="flex flex-col md:flex-row items-center gap-12 text-left bg-white dark:bg-slate-800 p-12 rounded-[56px] shadow-2xl relative transition-all border border-slate-200 dark:border-slate-700">
-                        <p class="text-slate-700 dark:text-slate-300 text-2xl italic flex-1">
-                            "¿En qué otro lugar de tu vida diaria crees que se usan variables? Piénsalo para tus próximos proyectos."
-                        </p>
-                        <div class="w-48 h-48 rounded-full border-8 border-white shadow-2xl overflow-hidden ring-4 ring-[#96cd34] shrink-0">
-                            <img src="https://microlog.es/img/cms/BANER2PP.png" alt="Niño" class="w-full h-full object-cover">
-                        </div>
-                    </div>
-                </div>
-            </footer>
-        </div>
+            </div>
+        </footer>
     </main>
 
     <script>
@@ -339,7 +432,10 @@
             document.body.classList.toggle('dark');
             localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
         }
-        if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+        // Persistir el tema al recargar
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark');
+        }
     </script>
 </body>
 </html>
