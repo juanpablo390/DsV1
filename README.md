@@ -1,3 +1,7 @@
+## ❔ "Por qué"
+
+Moodle suele tener una interfaz monótona que puede afectar la retención del estudiante. Este proyecto fue creado para incrustarse o funcionar en paralelo con la academia, ofreciendo a los alumnos tarjetas interactivas, animaciones de estado fluido y un modo oscuro que facilita las sesiones de estudio nocturnas.
+
 ## 🛠️ Cómo usar el Filtro de Secciones por URL
 
 El proyecto incluye una funcionalidad que permite visualizar una **única sección a la vez**.
